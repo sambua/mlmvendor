@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  resources :items
+  namespace :api, defaults: { format: :json } do
+    resources :items
+    root to: "items#index"
+  end
 
-  root to: "items#index"
 
   # API subdomain perposes
   # Below code is as example in case if you want to use something within

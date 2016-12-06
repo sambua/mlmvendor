@@ -1,31 +1,47 @@
 require 'rails_helper'
 
-RSpec.describe ItemsController, type: :controller do
+RSpec.describe Api::ItemsController, type: :controller do
   before(:each) do
     @items = FactoryGirl.create_list(:item, 5)
   end
 
-  let(:test_item) { FactoryGirl.create(:item) }
+  let(:active_item) { FactoryGirl.create(:active_item) }
+  let(:inactive_item) { FactoryGirl.create(:inactive_item) }
+
   let(:json) { JSON.parse(response.body, symbolize_names: true) }
 
   describe "GET #index" do
     before do
+      active_item
+      inactive_item
+    end
+
+    before do
       get :index, format: :json
     end
 
-    it "returns http success and list of items" do
-      expect(response).to have_http_status(:success)
+    it "active items visible" do
+      expect(json[:data][0][:attributes][:title]).to include('Active Product')
     end
+
+    it "inactive items is hidden" do
+      expect(json[:data][0][:attributes][:title]).not_to include('Not Active Product Title')
+    end
+
+    it "only one item is visible" do
+      expect(json[:data].length).to eq(1)
+    end
+
   end
 
   describe "GET #show" do
     before(:each) do
-      # get :show, id: test_item.id, format: :json
-      get :show, params: { id: test_item.id }
+      # get :show, id: active_item.id, format: :json
+      get :show, params: { id: active_item.id }
     end
 
     it "returns informaiton abput item on a hash" do
-      expect(json[:data][:attributes][:title]).to eql test_item.title
+      expect(json[:data][:attributes][:title]).to eql active_item.title
     end
 
     # with shoulda code
@@ -48,19 +64,13 @@ RSpec.describe ItemsController, type: :controller do
         valid_input
       end
 
-      xit "renders the json representation for the item record just created" do
-        jdata = JSON.parse(response.body, symbolize_names: true)
-        test_item.reload
-        expect(jdata[:data][:attributes][:title]).to eql test_item.title
-      end
-
       it "return with 201 response" do
         expect(response).to have_http_status(201)
       end
 
       it "last item in DB should be last insert" do
         jdata = JSON.parse(response.body, symbolize_names: true)
-        expect(Item.last.title).to eq(jdata[:data][:attributes][:title])
+        expect(json[:success]).to include("Item was successfully created.")
       end
 
       it "add new item to DB" do
@@ -103,12 +113,6 @@ RSpec.describe ItemsController, type: :controller do
 
   end
 
-  describe "GET #edit" do
-    it "returns http success and list of items" do
-      expect(response).to have_http_status(:success)
-    end
-  end
-
   describe "PUT/PATCH #update" do
 
     context "when successfully updating" do
@@ -118,13 +122,13 @@ RSpec.describe ItemsController, type: :controller do
       end
 
       before(:each) do
-        #process :update, method: :put, params: { id: test_item.id, item: update_valid_data } , format: :json
-        put :update, id: test_item, item: update_valid_data
-        test_item.reload
+        #process :update, method: :put, params: { id: active_item.id, item: update_valid_data } , format: :json
+        put :update, id: active_item, item: update_valid_data
+        active_item.reload
       end
 
       it "should get new title and price" do
-        expect(test_item.title).to eq('Updated Title')
+        expect(active_item.title).to eq('Updated Title')
       end
 
       it "DB has to be stay at the same count" do
@@ -148,9 +152,9 @@ RSpec.describe ItemsController, type: :controller do
       end
 
       it "doesn't update item record in DB" do
-        put :update, id: test_item, item: update_invalid_data
-        test_item.reload
-        expect(test_item.price).not_to eq(10)
+        put :update, id: active_item, item: update_invalid_data
+        active_item.reload
+        expect(active_item.price).not_to eq(10)
       end
 
       it "DB has to be stay at the same count" do

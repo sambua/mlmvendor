@@ -1,4 +1,4 @@
-class ItemsController < ApplicationController
+class Api::ItemsController < ApplicationController
     # only accept json requests
 
     # GET /items
@@ -16,7 +16,7 @@ class ItemsController < ApplicationController
     def create
       @item = Item.new(item_params)
       if @item.save
-        render json: @item, status: 201, location: @item
+        render json: { success: 'Item was successfully created.' }, status: 201
       else
         render json: @item.errors, status: 422
       end
@@ -33,7 +33,7 @@ class ItemsController < ApplicationController
       @item = Item.friendly.find(params[:id])
 
       if @item.update_attributes(item_params)
-        redirect_to item_path(@item)
+        render json: { success: 'Item was successfully updated.'}, status: 204 
       else
         render json: @item.errors, status: 422
       end
