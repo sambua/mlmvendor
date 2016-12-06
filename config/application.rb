@@ -26,5 +26,21 @@ module Mlmvendor
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+
+    # Protect API from DDoS, Rack::Attack with
+    # whitelist: Allowing it to process normally if certain conditions are true
+    # blacklist: Sending a denied message instantly for certain requests
+    # throttle: Checking if the user is within their allowed usage
+    # track: Tracking this request to be able to log certain information about our requests
+    # config.middleware.use Rack::Attack
+
+    # config.middleware.insert_before 0, "Rack::Cors" do
+    #   allow do
+    #     origins '*'
+    #     resource '*', :headers => :any, :methods => [:get, :post, :options]
+    #   end
+    # end
+
   end
 end

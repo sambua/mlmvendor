@@ -1,4 +1,7 @@
 Rails.application.configure do
+  # Render html only for exceptions, we also can use :api
+  config.debug_exception_response_format = :default
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
