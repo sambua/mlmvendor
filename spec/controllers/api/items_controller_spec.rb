@@ -5,17 +5,12 @@ RSpec.describe Api::ItemsController, type: :controller do
     @items = FactoryGirl.create_list(:item, 5)
   end
 
-  let(:active_item) { FactoryGirl.create(:active_item) }
-  let(:inactive_item) { FactoryGirl.create(:inactive_item) }
+  let!(:active_item) { create(:active_item) }
+  let!(:inactive_item) { create(:inactive_item) }
 
   let(:json) { JSON.parse(response.body, symbolize_names: true) }
 
   describe "GET #index" do
-    before do
-      active_item
-      inactive_item
-    end
-
     before do
       get :index, format: :json
     end
