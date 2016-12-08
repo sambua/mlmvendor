@@ -84,7 +84,7 @@ RSpec.describe Api::ItemsController, type: :request do
         expect(response).to have_http_status(201)
       end
 
-      it "last item in DB should be last insert" do
+      it "get success message if item will be added successfully" do
         jdata = JSON.parse(response.body, symbolize_names: true)
         expect(json["success"]).to include("Item was successfully created.")
       end
@@ -144,12 +144,6 @@ RSpec.describe Api::ItemsController, type: :request do
 
       it "should get new title and price" do
         expect(active_item.title).to eq('Updated Title')
-      end
-
-      it "DB has to be stay at the same count" do
-        expect {
-          update_valid_data
-        }.not_to change(Item, :count)
       end
 
       it "DB has to be stay at the same count" do
