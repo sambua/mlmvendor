@@ -9,7 +9,11 @@ class Api::ItemsController < ApplicationController
     # GET /items/:id
     def show
       @item = Item.friendly.find(params[:id])
-      render json: @item
+      if @item.status == 1
+        render json: @item
+      else
+        render json: { error: 'Item not found' }, status: 404
+      end
     end
 
     # POST /items
@@ -33,7 +37,7 @@ class Api::ItemsController < ApplicationController
       @item = Item.friendly.find(params[:id])
 
       if @item.update_attributes(item_params)
-        render json: { success: 'Item was successfully updated.'}, status: 204 
+        render json: { success: 'Item was successfully updated.'}, status: 204
       else
         render json: @item.errors, status: 422
       end
@@ -44,7 +48,7 @@ class Api::ItemsController < ApplicationController
 
     # DELETE /items/:id
     def destroy
-      @item.destroy
+      Item.friendly.find(params[:id]).delete
       head 204
     end
 

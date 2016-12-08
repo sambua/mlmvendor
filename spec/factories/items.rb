@@ -15,6 +15,11 @@ FactoryGirl.define do
       status 1
       title "Active Product"
     end
+    
+    factory :active_items_list, class: Item do
+      status 1
+      sequence(:title) { |n| "Active Product #{n}"}
+    end
 
   end
 end
