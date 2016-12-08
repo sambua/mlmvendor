@@ -1,4 +1,5 @@
 # README
+[![Code Climate](https://codeclimate.com/github/sambua/mlmvendor/badges/gpa.svg)](https://codeclimate.com/githu
 
 This is multi langual multi vendor project based on Rails and React/Redux
 
@@ -14,7 +15,7 @@ Things you may want to cover:
   `ln -s /path/to/mlmvendor`
 
 
-[![Code Climate](https://codeclimate.com/github/sambua/mlmvendor/badges/gpa.svg)](https://codeclimate.com/github/sambua/mlmvendor)
+b/sambua/mlmvendor)
 
 * Database creation
 
