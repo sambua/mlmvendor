@@ -13,6 +13,9 @@ Things you may want to cover:
   `cd ~/.pow`
   `ln -s /path/to/mlmvendor`
 
+
+[![Code Climate](https://codeclimate.com/github/sambua/mlmvendor/badges/gpa.svg)](https://codeclimate.com/github/sambua/mlmvendor)
+
 * Database creation
 
 * Database initialization
