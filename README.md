@@ -1,7 +1,5 @@
 # README
-[![Code Climate](https://codeclimate.com/github/sambua/mlmvendor/badges/gpa.svg)](https://codeclimate.com/github/sambua/mlmvendor)
-
-[![Build Status](https://travis-ci.org/sambua/mlmvendor.svg?branch=master)](https://travis-ci.org/sambua/mlmvendor)
+[![Code Climate](https://codeclimate.com/github/sambua/mlmvendor/badges/gpa.svg)](https://codeclimate.com/github/sambua/mlmvendor) [![Build Status](https://travis-ci.org/sambua/mlmvendor.svg?branch=master)](https://travis-ci.org/sambua/mlmvendor)
 
 This is multi langual multi vendor project based on Rails and React/Redux
 
