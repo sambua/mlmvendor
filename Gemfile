@@ -46,6 +46,7 @@ group :development do
 end
 
 group :test do
+  gem 'rack', '~> 2.0', '>= 2.0.1'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'shoulda-matchers', require: false
